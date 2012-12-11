@@ -7,6 +7,7 @@ Installation:
 * move ~/.vim/.vimrc to ~/.vimrc
 
 Plugin:
+
 * ctrlp
 
 * rails
