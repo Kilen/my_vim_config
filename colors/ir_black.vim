@@ -101,7 +101,7 @@ if version >= 700 " Vim 7.x specific colors
   " Pmenu* is for my Ctrl-X-l Ctrl-n ..
   hi Pmenu          guifg=#f6f3e8     guibg=#444444     gui=NONE      ctermfg=NONE        ctermbg=NONE        cterm=NONE
   hi PmenuSel       guifg=#000000     guibg=#cae682     gui=NONE      ctermfg=black       ctermbg=grey        cterm=NONE
-  hi Search         guifg=NONE        guibg=#2F2F00     gui=underline ctermfg=NONE        ctermbg=NONE	      cterm=underline
+  hi Search         guifg=NONE        guibg=#2F2F00     gui=underline ctermfg=black        ctermbg=yellow cterm=underline
 endif
 
 

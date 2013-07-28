@@ -1,60 +1,3 @@
-" -----------------   Author: Ruchee
-" -----------------    Email: my@ruchee.com
-" -----------------  WebSite: http://www.ruchee.com
-" -----------------     Date: 2012-10-07
-" -----------------           For Linux and Cygwin
-
-
-" Ctrl + H                   --光标移当前行行首       [插入模式]
-" Ctrl + J                   --光标移下一行行首       [插入模式]
-" Ctrl + K                   --光标移上一行行尾       [插入模式]
-" Ctrl + L                   --光标移当前行行尾       [插入模式]
-" Ctrl + C                   --单源文件编译           [已配置 C/C++]
-" Ctrl + R                   --单源文件运行           [已配置 C/C++ Ruby Bash]
-
-" <C-P>                      --关键字补全
-" <C-X><C-L>                 --整行补全
-" <C-X><C-O>                 --全能补全
-" Tab键                      --插入模式下语法结构补全 [snipMate插件]
-" Shift + Insert             --向Vim中粘贴从别处复制的内容
-
-" u [小写]                   --单步复原               [非插入模式]
-" U [大写]                   --整行复原               [非插入模式]
-
-" nt                         --打开NERDTree           [非插入模式]
-" tl                         --打开TagList            [非插入模式]
-
-" za                         --打开或关闭当前折叠
-" zM                         --关闭所有折叠
-" zR                         --打开所有折叠
-
-" :se ft=cpp                 --手动选择语法高亮       [:set filetype=cpp 或 :set syntax=cpp 亦可]
-
-" :%!xxd                     --转储二进制文件，以十六进制形式显示
-" :%!xxd -r                  --还原二进制文件
-
-
-" ---------- 主要插件详细用法说明 ---------------------
-
-
-" ---------- snipMate [全局可用的补全关键字] ----------
-"
-" 更多关键字可自行查看vimfiles/snippets下的各个文件   [Linux下为~/.vim/snippets]
-
-
-" ---------- NERDTree [智能文件浏览器] ----------------
-"
-" :NERDTree                  --启动NERDTree插件
-" o [小写]                   --切换当前文件或目录的打开、关闭状态
-" u                          --打开上层目录
-" p [小写]                   --返回上层目录
-" P [大写]                   --返回根目录
-" K                          --转到当前目录第一个节点
-" J                          --转到当前目录最后的节点
-" m                          --显示文件系统菜单       [增、删、移]
-" ?                          --弹出帮助菜单
-" q                          --退出该插件
-
 
 colorscheme ir_black         " 着色模式
 set guifont=Monaco:h11       " 字体 && 字号
@@ -65,7 +8,7 @@ set ai!                      " 设置自动缩进
 set smartindent              " 智能自动缩进
 set shiftwidth=2             " 换行时行间交错使用2空格
 set cindent shiftwidth=2     " 自动缩进2空格
-set nu!                      " 显示行号
+set number                   " 显示行号
 set mouse=a                  " 启用鼠标
 set ruler                    " 右下角显示光标位置的状态行
 set incsearch                " 开启实时搜索功能
@@ -79,8 +22,8 @@ set foldmethod=syntax        " 选择代码折叠类型
 set foldlevel=100            " 禁止自动折叠
 set laststatus=2             " 开启状态栏信息
 set cmdheight=2              " 命令行的高度，默认为1，这里设为2
-"set showmatch               " 显示括号配对情况
-"set cursorline              " 突出显示当前行
+set showmatch               " 显示括号配对情况
+set cursorline              " 突出显示当前行
 "set nowrap                  " 设置不自动换行
 set writebackup              " 设置无备份文件
 set nobackup
@@ -88,15 +31,14 @@ set list                     " 显示Tab符，使用一高亮竖线代替
 set listchars=tab:\|\ ,
 set tabstop=2                " 设置Tab键的宽度        [等同的空格个数]
 set expandtab                " 将Tab自动转化成空格    [需要输入真正的Tab键时，使用 Ctrl+V + Tab]
+set hlsearch
+set incsearch
 
 syntax enable                " 打开语法高亮
 syntax on                    " 开启文件类型侦测
 filetype indent on           " 针对不同的文件类型采用不同的缩进格式
 filetype plugin on           " 针对不同的文件类型加载对应的插件
 filetype plugin indent on    " 启用自动补全
-
-" 每行超过80个的字符用下划线标示
-au BufRead,BufNewFile *.s,*.c,*.cpp,*.h,*.cl,*.rb,*.sql,*.sh,*.vim,*.js,*.css,*.html 2match Underlined /.\%81v/
 
 " 在不同模式下使用不同光标形状
 if has("autocmd")
@@ -111,21 +53,7 @@ set fenc=utf-8
 set encoding=utf-8
 set fileencodings=utf-8,gbk,cp936,latin-1
 
-
 " ======= 引号 && 括号自动匹配 ======= "
-
-:inoremap ( ()<ESC>i
-
-:inoremap ) <c-r>=ClosePair(')')<CR>
-
-:inoremap { {}<ESC>i
-
-:inoremap } <c-r>=ClosePair('}')<CR>
-
-:inoremap [ []<ESC>i
-
-:inoremap ] <c-r>=ClosePair(']')<CR>
-
 function ClosePair(char)
   if getline('.')[col('.') - 1] == a:char
      return "\<Right>"
@@ -134,109 +62,28 @@ function ClosePair(char)
   endif
 endf
 
+:inoremap ( ()<ESC>i
 
-" MiniBufExplorer     多个文件切换 可使用鼠标双击相应文件名进行切换
-let g:miniBufExplMapWindowNavVim=1
-let g:miniBufExplMapWindowNavArrows=1
-let g:miniBufExplMapCTabSwitchBufs=1
-let g:miniBufExplModSelTarget=1
+:inoremap ) <C-r>=ClosePair(')')<CR>
 
-" :Tlist              调用TagList
-let Tlist_Show_One_File=1                    " 只显示当前文件的tags
-let Tlist_Exit_OnlyWindow=1                  " 如果Taglist窗口是最后一个窗口则退出Vim
-let Tlist_Use_Right_Window=1                 " 在右侧窗口中显示
-let Tlist_File_Fold_Auto_Close=1             " 自动折叠
+:inoremap { {}<ESC>i
+
+:inoremap } <C-r>=ClosePair('}')<CR>
+
+:inoremap [ []<ESC>i
+
+:inoremap ] <C-r>=ClosePair(']')<CR>
+
 
 " :LoadTemplate       根据文件类型自动加载模板
 let g:template_path='~/.vim/template/'
 
-" snipMate            Tab智能补全
-let g:snips_author='Ruchee'
+imap <C-a> <ESC>I
 
-" :AuthorInfoDetect   自动添加作者、时间等信息，本质是NERD_commenter && authorinfo的结合
-let g:vimrc_author='Ruchee'
-let g:vimrc_email='my@ruchee.com'
-let g:vimrc_homepage='http://www.ruchee.com'
+imap <C-e> <ESC>A
 
-" Ctrl + H            将光标移到当前行的行首
-imap <c-h> <ESC>I
+cmap tree NERDTree
 
-" Ctrl + J            将光标移到下一行的行首
-imap <c-j> <ESC>jI
-
-" Ctrl + K            将光标移到上一行的末尾
-imap <c-k> <ESC>kA
-
-" Ctrl + L            将光标移到当前行的行尾
-imap <c-l> <ESC>A
-
-" Ctrl + E            一步加载语法模板和作者、时间信息
-map <c-e> <ESC>:LoadTemplate<CR><ESC>:AuthorInfoDetect<CR><ESC>Gi
-imap <c-e> <ESC>:LoadTemplate<CR><ESC>:AuthorInfoDetect<CR><ESC>Gi
-vmap <c-e> <ESC>:LoadTemplate<CR><ESC>:AuthorInfoDetect<CR><ESC>Gi
-
-" nt                  打开NERDTree窗口，在左侧栏显示  [非插入模式]
-map nt :NERDTree<CR>
-
-
-" ======= 编译 && 运行 ======= "
-
-" 编译源文件
-func! CompileCode()
-  exec "w"
-  if &filetype == "c"
-    exec "!clang -std=c99 %<.c -o %<"
-  elseif &filetype == "cpp"
-    exec "!clang++ -std=c++98 %<.cpp -o %<"
-  elseif &filetype == "ruby"
-    exec "!ruby %<.rb"
-  elseif &filetype == "sh"
-    exec "!bash %<.sh"
-  endif
-endfunc
-
-" 运行可执行文件
-func! RunCode()
-  exec "w"
-  if &filetype == "c" || &filetype == "cpp"
-    exec "! ./%<"
-  elseif &filetype == "ruby"
-    exec "!ruby %<.rb"
-  elseif &filetype == "sh"
-    exec "!bash %<.sh"
-  endif
-endfunc
-
-" Ctrl + C 一键保存、编译
-map <c-c> :call CompileCode()<CR>
-imap <c-c> <ESC>:call CompileCode()<CR>
-vmap <c-c> <ESC>:call CompileCode()<CR>
-
-" Ctrl + R 一键保存、运行
-map <c-r> :call RunCode()<CR>
-imap <c-r> <ESC>:call RunCode()<CR>
-vmap <c-r> <ESC>:call RunCode()<CR>
-
-
-" ======= VimWiki ======= "
-
-" 设置编码
-let g:vimwiki_w32_dir_enc = 'utf-8'
-
-" 使用鼠标映射
-let g:vimwiki_use_mouse = 1
-
-" 不要将驼峰式词组作为 Wiki 词条
-let g:vimwiki_camel_case = 0
-
-" 声明可以在wiki里面使用的HTML标签
-let g:vimwiki_valid_html_tags='b,i,s,u,sub,sup,kbd,br,hr,div,del,code,red,center,left,right,h2,h4,h5,h6,pre,script,style'
-
-let g:vimwiki_list = [{
-\ 'path': '~/mysite/wiki',
-\ 'path_html': '~/mysite/html/',
-\ 'html_header': '~/mysite/template/header.html',
-\ 'html_footer': '~/mysite/template/footer.html',
-\ 'auto_export': 1,
-\ 'nested_syntaxes': {'Clang': 'c', 'C++': 'cpp', 'Lisp': 'lisp', 'Ruby': 'ruby', 'SQL': 'sql', 'Bash': 'sh', 'Vim': 'vim', 'Make': 'make', 'CMake': 'cmake', 'JS': 'javascript', 'CSS': 'css', 'HTML': 'html', 'XML': 'xml'},}]
+map tn :tabnew<CR>
+map tc :tabclose<CR>
 
