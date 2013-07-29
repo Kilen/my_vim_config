@@ -1,0 +1,86 @@
+
+colorscheme Mustang
+set guifont=Monaco:h11       
+set backspace=2              
+set autoindent               
+set autoread                 
+set ai!                      
+set smartindent              
+set shiftwidth=2             
+set cindent shiftwidth=2     
+set number                   
+set mouse=a                  
+set ruler                    
+set incsearch                
+set hlsearch                 
+set nowrapscan               
+set nocompatible             
+set vb t_vb=                 
+set hidden                   
+set autochdir                
+set foldmethod=syntax        
+set foldlevel=100            
+set laststatus=2             
+set cmdheight=2              
+set showmatch               
+set cursorline              
+"set nowrap                  
+set writebackup              
+set nobackup
+set list                     
+set listchars=tab:\|\ ,
+set tabstop=2                
+set expandtab                
+set hlsearch
+set incsearch
+
+syntax enable                
+syntax on                    
+filetype indent on           
+filetype plugin on           
+filetype plugin indent on    
+
+
+set fenc=utf-8
+set encoding=utf-8
+set fileencodings=utf-8,gbk,cp936,latin-1
+
+function ClosePair(char)
+  if getline('.')[col('.') - 1] == a:char
+     return "\<Right>"
+  else
+     return a:char
+  endif
+endf
+
+set columns=80
+set lines=40
+if has("gui_macvim")
+  set fuopt+=maxhorz
+endif
+
+:inoremap ( ()<ESC>i
+
+:inoremap ) <C-r>=ClosePair(')')<CR>
+
+:inoremap { {}<ESC>i
+
+:inoremap } <C-r>=ClosePair('}')<CR>
+
+:inoremap [ []<ESC>i
+
+:inoremap ] <C-r>=ClosePair(']')<CR>
+
+
+" :LoadTemplate     
+let g:template_path='~/.vim/template/'
+
+imap <C-a> <ESC>I
+
+imap <C-e> <ESC>A
+
+cmap tree NERDTree
+
+map tn :tabnew<CR>
+map tc :tabclose<CR>
+
