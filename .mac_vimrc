@@ -91,6 +91,19 @@ cmap tree NERDTree
 map tn :tabnew<CR>
 map tc :tabclose<CR>
 
+let s:entrance_path = getcwd()
+
+fun! MyGrep(arg)
+  if a:arg == ""
+    echoerr "Command Locate need a parameter!"
+  else
+    echo "Begin searching \"" . a:arg . "\"(start from " . s:entrance_path . ")"
+    let a:files = s:entrance_path . "/**"
+    execute "noautocmd vimgrep \"" . a:arg . "\" " . a:files 
+  endif
+endfunction
+
+command! -nargs=* Locate call MyGrep('<args>')
 
 " for php
 imap <C-p> <?php<CR>?><CR><ESC>kk
