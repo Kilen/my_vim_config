@@ -96,14 +96,22 @@ map tc :tabclose<CR>
 
 let s:entrance_path = getcwd()
 
-fun! MyGrep(arg)
-  if a:arg == ""
+fun! MyGrep(name, ...)
+  if a:name == ""
     echoerr "Command Locate need a parameter!"
   else
-    echo "Begin searching \"" . a:arg . "\"(start from " . s:entrance_path . ")"
+    echo "Begin searching \"" . a:name. "\"(start from " . s:entrance_path . ")"
     let a:files = s:entrance_path . "/**"
-    execute "noautocmd vimgrep \"" . a:arg . "\" " . a:files 
+    let a:type = ""
+    if a:0 > 1
+      echoerr "Command Locate can only take two parameters top!"
+      return
+    endif
+    if a:0 == "1"
+      let a:type = "/*." . a:1
+    endif
+    execute "noautocmd vimgrep \"" . a:name. "\" " . a:files . a:type
   endif
 endfunction
 
-command! -nargs=* Locate call MyGrep('<args>')
+command! -nargs=* Locate call MyGrep(<f-args>)
