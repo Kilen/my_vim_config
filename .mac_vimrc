@@ -1,4 +1,8 @@
-colorscheme Mustang
+if has("mac")
+  colorscheme Mustang
+else
+  colorscheme ir_black
+end
 set guifont=Monaco:h11       
 set backspace=2              
 set autoindent               
