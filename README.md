@@ -19,3 +19,13 @@ Plugin:
 * NERD\_tree
 
 * zencoding
+
+* pathogen
+
+* web-indent (http://www.vim.org/scripts/script.php?script_id=3081)
+
+How to install new plugin:
+
+    cd ~/.vim/bundle
+    git clone git://github.com/plugins/new_plugin.git
+
