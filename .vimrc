@@ -1,8 +1,37 @@
-if has("mac")
-  colorscheme Mustang
-else
-  colorscheme ir_black
-end
+" Commands
+" 1. install plugin with vundle
+"   - https://github.com/VundleVim/Vundle.vim#quick-start
+"   - Launch vim and run :PluginInstall 
+"   - To install from command line: vim +PluginInstall +qall
+"
+" 2. complie coffee
+"   - https://github.com/kchmck/vim-coffee-script#compile-to-javascript
+"   - :make!
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'jelera/vim-javascript-syntax'
+
+Plugin 'kchmck/vim-coffee-script'
+
+Plugin 'dkprice/vim-easygrep'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
+colorscheme Mustang
+set t_Co=256
 set guifont=Monaco:h11       
 set backspace=2              
 set autoindent               
@@ -27,7 +56,6 @@ set laststatus=2
 set cmdheight=2              
 set showmatch               
 set cursorline              
-"set nowrap                  
 set writebackup              
 set nobackup
 set list                     
@@ -49,7 +77,19 @@ syntax on
 filetype indent on           
 filetype plugin on           
 filetype plugin indent on    
+let g:instant_markdown_autostart = 0
 
+" Most prefer to automatically switch to the current file directory when
+" a new buffer is opened; to prevent this behavior, add the
+" following to
+" your .vimrc.before.local file:
+if !exists('g:spf13_no_autochdir')
+  autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+  " Always switch to the current file directory
+endif
+
+" When you press <leader>r you can search and replace the selected text
+vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 
 set fenc=utf-8
 set encoding=utf-8
@@ -87,7 +127,7 @@ let g:template_path='~/.vim/template/'
 
 imap <C-a> <ESC>I
 imap <C-e> <ESC>A
-imap <C-d> <BS>
+imap <C-d> <ESC>lxi
 
 nmap U :later<CR>
 
@@ -119,6 +159,11 @@ command! -nargs=* Locate call MyGrep(<f-args>)
 
 " for php
 imap <C-p> <?php<CR>?><CR><ESC>kk
+
+" for rubocop.vim
+let g:vimrubocop_keymap = 0
+let g:vimrubocop_config = '/Users/kilen/.vim/plugin/rubocop_configs/default.yml'
+nmap ro :RuboCop<CR>
 
 " for pathogen
 execute pathogen#infect()
